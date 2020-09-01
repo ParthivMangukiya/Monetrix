@@ -13,13 +13,14 @@
 
     <fragment
         android:id="@+id/navigation_dashboard"
-        android:name="com.hackademy.monetrix.ui.dashboard.DashboardFragment"
+        android:name="com.hackademy.monetrix.ui.transaction.TransactionsFragment"
         android:label="@string/title_dashboard"
         tools:layout="@layout/fragment_dashboard" />
 
     <fragment
         android:id="@+id/navigation_notifications"
-        android:name="com.hackademy.monetrix.ui.notifications.NotificationsFragment"
+        android:name="com.hackademy.monetrix.ui.add.AddFragment"
         android:label="@string/title_notifications"
-        tools:layout="@layout/fragment_notifications" />
+        tools:layout="@layout/fragment_transactions" />
+
 </navigation>
