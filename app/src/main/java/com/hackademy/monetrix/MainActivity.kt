@@ -1,13 +1,16 @@
 package com.hackademy.monetrix
 
+import android.graphics.Color
+import android.graphics.drawable.ColorDrawable
 import android.os.Bundle
-import com.google.android.material.bottomnavigation.BottomNavigationView
 import androidx.appcompat.app.AppCompatActivity
+import androidx.fragment.app.FragmentTransaction
 import androidx.navigation.findNavController
 import androidx.navigation.ui.AppBarConfiguration
-import androidx.navigation.ui.setupActionBarWithNavController
 import androidx.navigation.ui.setupWithNavController
+import com.google.android.material.bottomnavigation.BottomNavigationView
 import com.google.android.material.floatingactionbutton.FloatingActionButton
+import com.hackademy.monetrix.ui.add.AddFragment
 
 class MainActivity : AppCompatActivity() {
 
@@ -28,7 +31,8 @@ class MainActivity : AppCompatActivity() {
 
         val addButton: FloatingActionButton = findViewById(R.id.addAction)
         addButton.setOnClickListener {
-
+            val dialog = AddFragment()
+            dialog.show(supportFragmentManager, AddFragment.TAG)
         }
 
     }

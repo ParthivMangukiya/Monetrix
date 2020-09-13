@@ -6,10 +6,10 @@ import androidx.room.Relation
 import java.util.*
 
 data class Transaction (
-    @Embedded val entry: Entry,
+    @Embedded var entry: Entry,
     @Relation(
-        parentColumn = "id",
+        parentColumn = "categoryId",
         entityColumn = "id"
     )
-    val category: Category
+    var category: Category
 )

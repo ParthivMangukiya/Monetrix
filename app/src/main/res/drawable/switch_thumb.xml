@@ -12,8 +12,5 @@
             <solid android:color="@color/switch_background" />
         </shape>
     </item>
-    <item>
-        <bitmap android:src="@drawable/ic_baseline_attach_money_24"
-            android:tint="@color/switch_color" />
-    </item>
+    <item android:drawable="@drawable/ic_baseline_attach_money_24"></item>
 </layer-list>

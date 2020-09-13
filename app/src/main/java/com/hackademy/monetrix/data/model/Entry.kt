@@ -12,6 +12,7 @@ enum class EntryType(val code: Int) {
 
 @Entity
 data class Entry(
+    val description: String,
     val amount: Double,
     val date: Date,
     val categoryId: Long,

@@ -15,9 +15,11 @@ import kotlinx.coroutines.launch
 import java.sql.Date
 import java.util.*
 
-@Database(entities = [Entry::class, Category::class],
-    version = 2,
-    exportSchema = false)
+@Database(
+    entities = [Entry::class, Category::class],
+    version = 3,
+    exportSchema = false
+)
 @TypeConverters(Converters::class)
 public abstract class AppDatabase : RoomDatabase() {
     abstract fun transactionDao(): TransactionDao
@@ -39,18 +41,50 @@ public abstract class AppDatabase : RoomDatabase() {
                     categoryDao.deleteAll()
 
                     // Add sample words.
-                    val category = Category(
-                        name = "Food"
+                    val categories = arrayOf(
+                        Category(
+                            name = "Food & Drink",
+                            image = "food"
+                        ), Category(
+                            name = "Entertainment",
+                            image = "ticket"
+                        ), Category(
+                            name = "Utilities",
+                            image = "utilities"
+                        ), Category(
+                            name = "Other",
+                            image = "invoice"
+                        )
                     )
-                    val ids: Array<Long> = categoryDao.insertAll(category)
-                    val entry = Entry(
-                        amount = 10.5,
-                        date = Date(Calendar.getInstance().time.time),
-                        categoryId = ids[0],
-                        type = EntryType.Income
+                    val ids: Array<Long> = categoryDao.insertAll(*categories)
+                    val entries = arrayOf(
+                        Entry(
+                            description = "Salary",
+                            amount = 100000.0,
+                            date = Date(Calendar.getInstance().time.time),
+                            categoryId = ids[3],
+                            type = EntryType.Income
+                        ), Entry(
+                            description = "Burger",
+                            amount = 400.0,
+                            date = Date(Calendar.getInstance().time.time),
+                            categoryId = ids[0],
+                            type = EntryType.Income
+                        ), Entry(
+                            description = "Movie",
+                            amount = 1000.0,
+                            date = Date(Calendar.getInstance().time.time),
+                            categoryId = ids[1],
+                            type = EntryType.Income
+                        ), Entry(
+                            description = "Light Bill",
+                            amount = 2000.0,
+                            date = Date(Calendar.getInstance().time.time),
+                            categoryId = ids[2],
+                            type = EntryType.Income
+                        )
                     )
-                    entryDao.insertAll(entry)
-
+                    entryDao.insertAll(*entries)
                 }
             }
         }

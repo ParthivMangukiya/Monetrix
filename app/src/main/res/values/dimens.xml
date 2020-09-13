@@ -3,4 +3,5 @@
     <dimen name="activity_horizontal_margin">16dp</dimen>
     <dimen name="activity_vertical_margin">16dp</dimen>
     <dimen name="big_padding">32dp</dimen>
+    <dimen name="add_transaction_icon_wh">36dp</dimen>
 </resources>

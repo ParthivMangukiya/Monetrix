@@ -7,4 +7,9 @@
     <string name="income_text">Income</string>
     <string name="expense_text">Expense</string>
     <string name="amount_edittext">Amount</string>
+    <string name="description_edittext">Description</string>
+    <string name="date_edittext">Date</string>
+    <string name="add_transaction_title">Enter Transaction</string>
+    <string name="choose_category_title">Choose Category</string>
+    <string name="save_button_title">Save</string>
 </resources>
