@@ -4,11 +4,12 @@ import android.content.Context
 import androidx.room.*
 import androidx.sqlite.db.SupportSQLiteDatabase
 import com.hackademy.monetrix.data.dao.CategoryDao
-import com.hackademy.monetrix.data.dao.EntryDao
+import com.hackademy.monetrix.data.dao.SavingPlanDao
 import com.hackademy.monetrix.data.dao.TransactionDao
 import com.hackademy.monetrix.data.model.Category
 import com.hackademy.monetrix.data.model.Entry
 import com.hackademy.monetrix.data.model.EntryType
+import com.hackademy.monetrix.data.model.SavingPlan
 import com.hackademy.monetrix.util.Converters
 import kotlinx.coroutines.CoroutineScope
 import kotlinx.coroutines.launch
@@ -16,15 +17,15 @@ import java.sql.Date
 import java.util.*
 
 @Database(
-    entities = [Entry::class, Category::class],
-    version = 3,
+    entities = [Entry::class, Category::class, SavingPlan::class],
+    version = 4,
     exportSchema = false
 )
 @TypeConverters(Converters::class)
 public abstract class AppDatabase : RoomDatabase() {
     abstract fun transactionDao(): TransactionDao
-    abstract fun entryDao(): EntryDao
     abstract fun categoryDao(): CategoryDao
+    abstract fun savingPlanDao(): SavingPlanDao
 
     private class AppDatabaseCallback(
         private val scope: CoroutineScope
@@ -34,11 +35,13 @@ public abstract class AppDatabase : RoomDatabase() {
             super.onOpen(db)
             INSTANCE?.let { database ->
                 scope.launch {
-                    val entryDao = database.entryDao()
+                    val transactionDao = database.transactionDao()
                     val categoryDao = database.categoryDao()
+                    val savingPlanDao = database.savingPlanDao()
                     // Delete all content here.
-                    entryDao.deleteAll()
+                    transactionDao.deleteAll()
                     categoryDao.deleteAll()
+                    savingPlanDao.deleteAll()
 
                     // Add sample words.
                     val categories = arrayOf(
@@ -60,7 +63,7 @@ public abstract class AppDatabase : RoomDatabase() {
                     val entries = arrayOf(
                         Entry(
                             description = "Salary",
-                            amount = 100000.0,
+                            amount = 10000.0,
                             date = Date(Calendar.getInstance().time.time),
                             categoryId = ids[3],
                             type = EntryType.Income
@@ -69,22 +72,52 @@ public abstract class AppDatabase : RoomDatabase() {
                             amount = 400.0,
                             date = Date(Calendar.getInstance().time.time),
                             categoryId = ids[0],
-                            type = EntryType.Income
+                            type = EntryType.Expense
                         ), Entry(
                             description = "Movie",
                             amount = 1000.0,
                             date = Date(Calendar.getInstance().time.time),
                             categoryId = ids[1],
-                            type = EntryType.Income
+                            type = EntryType.Expense
                         ), Entry(
                             description = "Light Bill",
-                            amount = 2000.0,
+                            amount = 5000.0,
                             date = Date(Calendar.getInstance().time.time),
                             categoryId = ids[2],
-                            type = EntryType.Income
+                            type = EntryType.Expense
                         )
                     )
-                    entryDao.insertAll(*entries)
+                    transactionDao.insertAll(*entries)
+                    val cal = Calendar.getInstance()
+                    cal.set(Calendar.YEAR, 2021)
+                    val savingPlans = arrayOf(
+                        SavingPlan(
+                            name = "Car",
+                            amount = 500000.0,
+                            targetDate = Date(cal.time.time),
+                            categoryId = ids[3],
+                            percent = 40,
+                            date = Date(Calendar.getInstance().time.time),
+                            completed = false
+                        ), SavingPlan(
+                            name = "Mobile",
+                            amount = 20000.0,
+                            targetDate = Date(cal.time.time),
+                            categoryId = ids[3],
+                            percent = 20,
+                            date = Date(Calendar.getInstance().time.time),
+                            completed = false
+                        ), SavingPlan(
+                            name = "Emergency Savings",
+                            amount = 10000.0,
+                            targetDate = Date(cal.time.time),
+                            categoryId = ids[3],
+                            percent = 10,
+                            date = Date(Calendar.getInstance().time.time),
+                            completed = false
+                        )
+                    )
+                    savingPlanDao.insertAll(*savingPlans)
                 }
             }
         }

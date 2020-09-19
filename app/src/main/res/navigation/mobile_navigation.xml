@@ -12,15 +12,15 @@
         tools:layout="@layout/fragment_home" />
 
     <fragment
-        android:id="@+id/navigation_dashboard"
+        android:id="@+id/navigation_transactions"
         android:name="com.hackademy.monetrix.ui.transaction.TransactionsFragment"
-        android:label="@string/title_dashboard"
-        tools:layout="@layout/fragment_dashboard" />
+        android:label="@string/title_transactions"
+        tools:layout="@layout/fragment_transactions" />
 
     <fragment
-        android:id="@+id/navigation_notifications"
-        android:name="com.hackademy.monetrix.ui.add.AddFragment"
-        android:label="@string/title_notifications"
-        tools:layout="@layout/fragment_transactions" />
+        android:id="@+id/navigation_savingplans"
+        android:name="com.hackademy.monetrix.ui.savingplan.SavingPlanFragment"
+        android:label="Saving Plans"
+        tools:layout="@layout/fragment_savingplans" />
 
 </navigation>

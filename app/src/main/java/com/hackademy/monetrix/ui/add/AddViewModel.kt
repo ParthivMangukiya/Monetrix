@@ -44,9 +44,8 @@ class AddViewModel(application: Application) : AndroidViewModel(application) {
     init {
         val database = AppDatabase.getDatabase(application, viewModelScope)
         val transactionDao = database.transactionDao()
-        val entryDao = database.entryDao()
         val categoryDao = database.categoryDao()
-        transactionRepository = TransactionRepository(entryDao, transactionDao)
+        transactionRepository = TransactionRepository(transactionDao)
         categoryRepository = CategoryRepository(categoryDao)
     }
 

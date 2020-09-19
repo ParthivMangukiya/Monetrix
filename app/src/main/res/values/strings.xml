@@ -1,8 +1,7 @@
 <resources>
     <string name="app_name">Monetrix</string>
     <string name="title_home">Home</string>
-    <string name="title_dashboard">Dashboard</string>
-    <string name="title_notifications">Notifications</string>
+    <string name="title_transactions">History</string>
     <string name="category_image_description">Category Image</string>
     <string name="income_text">Income</string>
     <string name="expense_text">Expense</string>
@@ -12,4 +11,10 @@
     <string name="add_transaction_title">Enter Transaction</string>
     <string name="choose_category_title">Choose Category</string>
     <string name="save_button_title">Save</string>
+    <string name="income">Income</string>
+    <string name="expense">Expense</string>
+    <string name="category_image">Category Image</string>
+    <string name="current_plans">Current Plans</string>
+    <string name="past_plans">Past Plans</string>
+    <string name="saving_plan">Saving Plan</string>
 </resources>

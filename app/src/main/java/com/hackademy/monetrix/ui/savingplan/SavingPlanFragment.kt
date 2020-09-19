@@ -1,4 +1,4 @@
-package com.hackademy.monetrix.ui.transaction
+package com.hackademy.monetrix.ui.savingplan
 
 import android.os.Bundle
 import android.view.LayoutInflater
@@ -12,35 +12,35 @@ import androidx.recyclerview.widget.RecyclerView
 import com.google.android.material.tabs.TabLayout
 import com.google.android.material.tabs.TabLayout.OnTabSelectedListener
 import com.hackademy.monetrix.R
-import com.hackademy.monetrix.ui.adapter.TransactionAdapter
+import com.hackademy.monetrix.ui.adapter.SavingPlanAdapter
 
-class TransactionsFragment : Fragment() {
+class SavingPlanFragment : Fragment() {
 
-    private lateinit var transactionViewModel: TransactionViewModel
+    private lateinit var savingPlanViewModel: SavingPlanViewModel
 
     override fun onCreateView(
         inflater: LayoutInflater,
         container: ViewGroup?,
         savedInstanceState: Bundle?
     ): View? {
-        val root = inflater.inflate(R.layout.fragment_transactions, container, false)
-        val tabLayout: TabLayout = root.findViewById(R.id.transactionsTabLayout)
-        val recyclerView = root.findViewById<RecyclerView>(R.id.transactionsRecyclerView)
-        val adapter = activity?.applicationContext?.let { TransactionAdapter(it) }
+        val root = inflater.inflate(R.layout.fragment_savingplans, container, false)
+        val tabLayout: TabLayout = root.findViewById(R.id.savingPlansTabLayout)
+        val recyclerView = root.findViewById<RecyclerView>(R.id.savingPlansRecyclerView)
+        val adapter = activity?.applicationContext?.let { SavingPlanAdapter(it) }
 
         recyclerView.adapter = adapter
         recyclerView.layoutManager = LinearLayoutManager(context?.applicationContext)
 
-        transactionViewModel = ViewModelProvider(this).get(TransactionViewModel::class.java)
-        transactionViewModel.transactions.observe(viewLifecycleOwner, Observer { transactions ->
+        savingPlanViewModel = ViewModelProvider(this).get(SavingPlanViewModel::class.java)
+        savingPlanViewModel.savingPlans.observe(viewLifecycleOwner, Observer { savingPlans ->
             // Update the cached copy of the words in the adapter.
-            transactions?.let { adapter?.setTransactions(it) }
+            savingPlans?.let { adapter?.setSavingPlans(it) }
         })
 
         tabLayout.addOnTabSelectedListener(object : OnTabSelectedListener {
             override fun onTabSelected(tab: TabLayout.Tab) {
                 val position = tab.position
-                transactionViewModel.showIncome.value = (position == 0)
+                savingPlanViewModel.showCurrent.value = (position == 0)
             }
 
             override fun onTabUnselected(tab: TabLayout.Tab) {}
