@@ -1,13 +1,16 @@
 package com.hackademy.monetrix.ui.add
 
+import android.animation.LayoutTransition
 import android.app.DatePickerDialog
 import android.graphics.Color
+import android.graphics.LinearGradient
 import android.graphics.drawable.ColorDrawable
 import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.widget.DatePicker
+import android.widget.LinearLayout
 import android.widget.Toast
 import androidx.databinding.DataBindingUtil
 import androidx.fragment.app.DialogFragment
@@ -33,6 +36,7 @@ class AddFragment : DialogFragment(), DatePickerDialog.OnDateSetListener {
         container: ViewGroup?,
         savedInstanceState: Bundle?
     ): View? {
+        postponeEnterTransition()
         val binding: FragmentAddBinding =
             DataBindingUtil.inflate(inflater, R.layout.fragment_add, container, false)
         val view: View = binding.root
@@ -40,6 +44,9 @@ class AddFragment : DialogFragment(), DatePickerDialog.OnDateSetListener {
         addViewModel = ViewModelProvider(this).get(AddViewModel::class.java)
         binding.viewmodel = addViewModel
 
+        view.findViewById<LinearLayout>(R.id.fragment_add_container).layoutTransition.enableTransitionType(
+            LayoutTransition.CHANGING
+        )
         val adapter = CategoryAdapter(requireActivity()) { id -> addViewModel.onClick(id) }
         val recyclerView = view.findViewById<RecyclerView>(R.id.category_recycler_view)
         recyclerView.adapter = adapter
@@ -47,6 +54,8 @@ class AddFragment : DialogFragment(), DatePickerDialog.OnDateSetListener {
         addViewModel.getCategories().observe(viewLifecycleOwner, Observer { categories ->
             // Update the cached copy of the words in the adapter.
             categories?.let { adapter.setCategories(it) }
+            startPostponedEnterTransition()
+            recyclerView.scheduleLayoutAnimation()
         })
         addViewModel.saved.observe(viewLifecycleOwner, Observer {
             if (it) {
@@ -72,7 +81,7 @@ class AddFragment : DialogFragment(), DatePickerDialog.OnDateSetListener {
                 }
             }
         })
-        dialog?.window?.setBackgroundDrawable(ColorDrawable(Color.TRANSPARENT));
+        dialog?.window?.setBackgroundDrawable(ColorDrawable(Color.TRANSPARENT))
         return view
     }
 
