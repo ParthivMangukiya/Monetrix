@@ -35,6 +35,7 @@ class SavingPlanFragment : Fragment() {
         savingPlanViewModel.savingPlans.observe(viewLifecycleOwner, Observer { savingPlans ->
             // Update the cached copy of the words in the adapter.
             savingPlans?.let { adapter?.setSavingPlans(it) }
+            recyclerView.scheduleLayoutAnimation()
         })
 
         tabLayout.addOnTabSelectedListener(object : OnTabSelectedListener {

@@ -10,8 +10,7 @@ import androidx.core.app.ActivityCompat
 import androidx.recyclerview.widget.RecyclerView
 import com.hackademy.monetrix.R
 import com.hackademy.monetrix.data.model.Category
-import com.hackademy.monetrix.data.model.Transaction
-import com.hackademy.monetrix.util.UIUtil.getResource
+import com.hackademy.monetrix.util.Util.getResource
 
 class CategoryAdapter internal constructor(
     val context: Context,

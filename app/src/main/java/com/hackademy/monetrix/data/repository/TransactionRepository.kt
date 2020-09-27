@@ -4,8 +4,7 @@ import androidx.annotation.WorkerThread
 import androidx.lifecycle.LiveData
 import com.hackademy.monetrix.data.dao.TransactionDao
 import com.hackademy.monetrix.data.model.*
-import com.hackademy.monetrix.util.UIUtil.combineAndCompute
-import java.time.LocalDate
+import com.hackademy.monetrix.util.Util.combineAndCompute
 import java.util.*
 
 class TransactionRepository(private val transactionDao: TransactionDao) {

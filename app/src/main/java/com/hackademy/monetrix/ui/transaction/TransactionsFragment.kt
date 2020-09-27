@@ -35,6 +35,7 @@ class TransactionsFragment : Fragment() {
         transactionViewModel.transactions.observe(viewLifecycleOwner, Observer { transactions ->
             // Update the cached copy of the words in the adapter.
             transactions?.let { adapter?.setTransactions(it) }
+            recyclerView.scheduleLayoutAnimation()
         })
 
         tabLayout.addOnTabSelectedListener(object : OnTabSelectedListener {

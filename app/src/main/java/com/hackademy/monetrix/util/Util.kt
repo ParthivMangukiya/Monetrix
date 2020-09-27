@@ -8,7 +8,7 @@ import androidx.lifecycle.MediatorLiveData
 import java.text.SimpleDateFormat
 import java.util.*
 
-object UIUtil {
+object Util {
 
     fun Context.getResource(name: String): Drawable? {
         val resID = this.resources.getIdentifier(name, "drawable", this.packageName)
@@ -48,6 +48,10 @@ object UIUtil {
         result.addSource(other) { source2emitted = true; mergeF.invoke() }
 
         return result
+    }
+
+    fun Double.toRupee(): String {
+        return "₹ $this"
     }
 
 }

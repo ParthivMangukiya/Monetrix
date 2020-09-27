@@ -8,7 +8,8 @@ import android.widget.TextView
 import androidx.recyclerview.widget.RecyclerView
 import com.hackademy.monetrix.R
 import com.hackademy.monetrix.data.model.SavingPlanTransaction
-import com.hackademy.monetrix.util.UIUtil.getFormatted
+import com.hackademy.monetrix.util.Util.getFormatted
+import com.hackademy.monetrix.util.Util.toRupee
 
 class SavingPlanAdapter internal constructor(
     val context: Context
@@ -31,8 +32,8 @@ class SavingPlanAdapter internal constructor(
 
     override fun onBindViewHolder(holder: TransactionViewHolder, position: Int) {
         val current = savingPlans[position]
-        holder.goalTextView.text = current.savingPlan.amount.toString()
-        holder.savedTextView.text = current.savedAmount.toString()
+        holder.goalTextView.text = current.savingPlan.amount.toRupee()
+        holder.savedTextView.text = current.savedAmount.toRupee()
         holder.nameTextView.text = current.savingPlan.name
         holder.targetDateTextView.text = current.savingPlan.targetDate.getFormatted("yyyy-MM-dd")
     }

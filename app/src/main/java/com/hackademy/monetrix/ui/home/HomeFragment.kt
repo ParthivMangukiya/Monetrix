@@ -33,6 +33,7 @@ class HomeFragment : Fragment() {
     private lateinit var balanceChart: PieChart
     private lateinit var recyclerView: RecyclerView
     private lateinit var adapter: CategoryTotalAdapter
+    private var animationDuration: Int = 500
 
 
     override fun onCreateView(
@@ -47,6 +48,7 @@ class HomeFragment : Fragment() {
         pieChart = root.findViewById(R.id.piechart)
         balanceChart = root.findViewById(R.id.balancechart)
         recyclerView = root.findViewById(R.id.category_total_recyclerview)
+        animationDuration = requireContext().resources.getInteger(R.integer.anim_duration_medium)
         setupPieChart()
         setupBalanceChart()
         setupRecyclerView()
@@ -77,8 +79,9 @@ class HomeFragment : Fragment() {
             data.setValueTextSize(Constants.chartValueSize)
             pieChart.setExtraOffsets(0f, 0f, 0f, -pieChart.height.toFloat() * 0.35f)
             pieChart.data = data
-            pieChart.animateX(2000, Easing.EaseOutSine)
             adapter.setCategories(list)
+            recyclerView.scheduleLayoutAnimation()
+            pieChart.animateX(animationDuration, Easing.EaseOutSine)
         })
 
         homeViewModel.entryTotal.observe(viewLifecycleOwner, Observer { list ->
@@ -91,7 +94,7 @@ class HomeFragment : Fragment() {
             data.setValueTextSize(Constants.chartValueSize)
             balanceChart.setExtraOffsets(0f, 0f, 0f, -balanceChart.height.toFloat() * 0.35f)
             balanceChart.data = data
-            balanceChart.animateX(1500, Easing.EaseOutSine)
+            balanceChart.animateX(animationDuration, Easing.EaseOutSine)
         })
 
         tabLayout.addOnTabSelectedListener(object : TabLayout.OnTabSelectedListener {

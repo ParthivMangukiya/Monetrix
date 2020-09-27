@@ -37,8 +37,10 @@ class HomeViewModel(application: Application) : AndroidViewModel(application) {
             }
         }
 
-        entryTotal = liveData {
-            emitSource(transactionRepository.getEntryTotalOfThisMonth())
+        entryTotal = showIncome.switchMap {
+            liveData {
+                emitSource(transactionRepository.getEntryTotalOfThisMonth())
+            }
         }
     }
 }

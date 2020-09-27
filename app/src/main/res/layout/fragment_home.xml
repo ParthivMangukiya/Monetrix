@@ -49,7 +49,7 @@
         app:layout_constraintStart_toStartOf="@+id/piechart"
         app:layout_constraintTop_toTopOf="@+id/piechart" />
 
-    <androidx.recyclerview.widget.RecyclerView
+    <com.hackademy.monetrix.ui.view.GridRecyclerView
         android:id="@+id/category_total_recyclerview"
         android:layout_width="match_parent"
         android:layout_height="0dp"
@@ -60,7 +60,9 @@
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/homeTabLayout" />
+        android:layoutAnimation="@anim/grid_layout_animation"
+        app:layout_constraintTop_toBottomOf="@+id/homeTabLayout"
+        tools:listitem="@layout/item_category_total" />
 
     <androidx.constraintlayout.widget.Guideline
         android:id="@+id/guideline3"

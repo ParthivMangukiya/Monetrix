@@ -6,17 +6,12 @@ import android.view.View
 import android.view.ViewGroup
 import android.widget.ImageView
 import android.widget.TextView
-import androidx.cardview.widget.CardView
-import androidx.core.app.ActivityCompat
 import androidx.core.content.ContextCompat
-import androidx.core.graphics.alpha
-import androidx.navigation.findNavController
 import androidx.recyclerview.widget.RecyclerView
 import com.google.android.material.card.MaterialCardView
 import com.hackademy.monetrix.R
-import com.hackademy.monetrix.data.model.Category
 import com.hackademy.monetrix.data.model.CategoryTotal
-import com.hackademy.monetrix.util.UIUtil.getResource
+import com.hackademy.monetrix.util.Util.getResource
 
 class CategoryTotalAdapter internal constructor(
     val context: Context

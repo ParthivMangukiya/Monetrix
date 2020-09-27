@@ -46,6 +46,7 @@
         app:layout_constraintRight_toRightOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/savingPlansTabLayout"
         app:layout_constraintVertical_bias="0.0"
+        android:layoutAnimation="@anim/layout_animation"
         tools:listitem="@layout/item_saving_plan" />
 
     <androidx.constraintlayout.widget.Guideline

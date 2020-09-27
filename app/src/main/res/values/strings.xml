@@ -17,4 +17,6 @@
     <string name="current_plans">Current Plans</string>
     <string name="past_plans">Past Plans</string>
     <string name="saving_plan">Saving Plan</string>
+    <string name="rupee_symbol">₹</string>
+    <string name="rupee">₹ %1$f</string>
 </resources>

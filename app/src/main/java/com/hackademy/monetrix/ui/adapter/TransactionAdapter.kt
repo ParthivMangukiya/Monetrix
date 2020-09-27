@@ -9,8 +9,9 @@ import android.widget.TextView
 import androidx.recyclerview.widget.RecyclerView
 import com.hackademy.monetrix.R
 import com.hackademy.monetrix.data.model.Transaction
-import com.hackademy.monetrix.util.UIUtil.getFormatted
-import com.hackademy.monetrix.util.UIUtil.getResource
+import com.hackademy.monetrix.util.Util.getFormatted
+import com.hackademy.monetrix.util.Util.getResource
+import com.hackademy.monetrix.util.Util.toRupee
 
 class TransactionAdapter internal constructor(
     val context: Context
@@ -33,7 +34,7 @@ class TransactionAdapter internal constructor(
 
     override fun onBindViewHolder(holder: TransactionViewHolder, position: Int) {
         val current = transactions[position]
-        holder.amountTextView.text = current.entry.amount.toString()
+        holder.amountTextView.text = current.entry.amount.toRupee()
         holder.dateTextView.text = current.entry.date.getFormatted("yyyy-MM-dd")
         context.getResource(current.category.image)?.let {
             holder.categoryImageView.setImageDrawable(it)
