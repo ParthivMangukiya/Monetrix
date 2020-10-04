@@ -23,4 +23,10 @@
         android:label="Saving Plans"
         tools:layout="@layout/fragment_savingplans" />
 
+    <fragment
+        android:id="@+id/navigation_insight"
+        android:name="com.hackademy.monetrix.ui.insight.InsightFragment"
+        android:label="Insights"
+        tools:layout="@layout/fragment_insight" />
+
 </navigation>

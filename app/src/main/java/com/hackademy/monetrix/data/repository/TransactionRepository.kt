@@ -47,6 +47,16 @@ class TransactionRepository(private val transactionDao: TransactionDao) {
     }
 
     @WorkerThread
+    fun getEntryTotalByMonth(): LiveData<List<EntryTotalWithMonth>> {
+        return transactionDao.getTotalByMonth()
+    }
+
+    @WorkerThread
+    fun getEntryTotalByMonth(type: EntryType): LiveData<List<EntryTotalWithMonth>> {
+        return transactionDao.getTotalByMonth(type)
+    }
+
+    @WorkerThread
     fun getBalance(): LiveData<Double> {
         return transactionDao.getTotal(EntryType.Income)
             .combineAndCompute(transactionDao.getTotal(EntryType.Expense)) { a, b ->

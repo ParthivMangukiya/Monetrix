@@ -1,4 +1,4 @@
-package com.hackademy.monetrix.ui.home
+package com.hackademy.monetrix.ui.insight
 
 import android.graphics.Color
 import android.os.Bundle
@@ -13,25 +13,28 @@ import androidx.lifecycle.ViewModelProvider
 import androidx.recyclerview.widget.GridLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import com.github.mikephil.charting.animation.Easing
+import com.github.mikephil.charting.charts.LineChart
 import com.github.mikephil.charting.charts.PieChart
-import com.github.mikephil.charting.data.PieData
-import com.github.mikephil.charting.data.PieDataSet
-import com.github.mikephil.charting.data.PieEntry
+import com.github.mikephil.charting.components.AxisBase
+import com.github.mikephil.charting.components.XAxis
+import com.github.mikephil.charting.data.*
+import com.github.mikephil.charting.formatter.ValueFormatter
 import com.google.android.material.tabs.TabLayout
 import com.hackademy.monetrix.R
 import com.hackademy.monetrix.data.model.EntryType
-import com.hackademy.monetrix.ui.adapter.CategoryTotalAdapter
-import com.hackademy.monetrix.util.Constants
+import com.hackademy.monetrix.ui.adapter.CategoryLegendAdapter
 import com.hackademy.monetrix.util.GridSpacingItemDecorator
 
-class HomeFragment : Fragment() {
 
-    private lateinit var homeViewModel: HomeViewModel
+class InsightFragment : Fragment() {
+
+    private lateinit var insightViewModel: InsightViewModel
     private lateinit var pieChart: PieChart
-    private lateinit var balanceChart: PieChart
-    private lateinit var recyclerView: RecyclerView
-    private lateinit var adapter: CategoryTotalAdapter
+    private lateinit var lineChart: LineChart
     private var animationDuration: Int = 500
+    private lateinit var recyclerView: RecyclerView
+    private lateinit var adapter: CategoryLegendAdapter
+    private lateinit var labels: List<String>
 
 
     override fun onCreateView(
@@ -39,17 +42,17 @@ class HomeFragment : Fragment() {
         container: ViewGroup?,
         savedInstanceState: Bundle?
     ): View? {
-        homeViewModel =
-            ViewModelProvider(this).get(HomeViewModel::class.java)
-        val root = inflater.inflate(R.layout.fragment_home, container, false)
+        insightViewModel =
+            ViewModelProvider(this).get(InsightViewModel::class.java)
+        val root = inflater.inflate(R.layout.fragment_insight, container, false)
         val tabLayout: TabLayout = root.findViewById(R.id.homeTabLayout)
+        recyclerView = root.findViewById(R.id.category_recyclerview)
+        setupRecyclerView()
         pieChart = root.findViewById(R.id.piechart)
-        balanceChart = root.findViewById(R.id.balancechart)
-        recyclerView = root.findViewById(R.id.category_total_recyclerview)
+        lineChart = root.findViewById(R.id.linechart)
         animationDuration = requireContext().resources.getInteger(R.integer.anim_duration_medium)
         setupPieChart()
-        setupBalanceChart()
-        setupRecyclerView()
+        setupLineChart()
 
         val colors = arrayOf(
             ContextCompat.getColor(requireContext(), R.color.chart_color1),
@@ -62,44 +65,47 @@ class HomeFragment : Fragment() {
             ContextCompat.getColor(requireContext(), R.color.chart_color8)
         )
 
-        val balanceColors = arrayOf(
-            ContextCompat.getColor(requireContext(), R.color.income),
-            ContextCompat.getColor(requireContext(), R.color.expense)
-        )
-
-        homeViewModel.categoriesTotal.observe(viewLifecycleOwner, Observer { list ->
+        insightViewModel.categoriesTotal.observe(viewLifecycleOwner, Observer { list ->
             val entries: List<PieEntry> = list.map {
                 PieEntry(it.total.toFloat(), it.category.name)
             }
             val set = PieDataSet(entries, "Categories")
+            set.sliceSpace = 8f
             set.colors = colors.toMutableList()
+            set.setDrawValues(false)
             val data = PieData(set)
-            data.setValueTextSize(Constants.chartValueSize)
-            pieChart.setExtraOffsets(0f, 0f, 0f, -pieChart.height.toFloat() * 0.30f)
             pieChart.data = data
-            adapter.setCategories(list)
-            recyclerView.scheduleLayoutAnimation()
+            adapter.setCategories(list.map {
+                it.category
+            })
             pieChart.animateX(animationDuration, Easing.EaseOutSine)
         })
 
-        homeViewModel.entryTotal.observe(viewLifecycleOwner, Observer { list ->
-            val entries: List<PieEntry> = list.map {
-                PieEntry(it.total.toFloat(), it.type.name)
+        insightViewModel.entryTotal.observe(viewLifecycleOwner, Observer { list ->
+            labels = list.map {
+                it.month
             }
-            val set = PieDataSet(entries, "Categories")
-            set.colors = balanceColors.toMutableList()
-            val data = PieData(set)
-            data.setValueTextSize(Constants.chartValueSize)
-            balanceChart.setExtraOffsets(0f, 0f, 0f, -balanceChart.height.toFloat() * 0.30f)
-            balanceChart.data = data
-            balanceChart.animateX(animationDuration, Easing.EaseOutSine)
+            val entries: MutableList<Entry> = mutableListOf()
+            list.forEachIndexed { index, entryTotalWithMonth -> entries.add(Entry(index.toFloat(), entryTotalWithMonth.total.toFloat())) }
+            val set = LineDataSet(entries, "By Month")
+            set.setDrawValues(false)
+            set.setColor(Color.DKGRAY);
+            set.setCircleColor(Color.DKGRAY);
+            set.setLineWidth(1f);
+            set.setCircleRadius(3f);
+            set.setDrawCircleHole(false)
+            set.setDrawFilled(true)
+            set.setFormLineWidth(1f)
+            val data = LineData(set)
+            lineChart.data = data
+            lineChart.animateX(animationDuration, Easing.EaseOutSine)
         })
 
         tabLayout.addOnTabSelectedListener(object : TabLayout.OnTabSelectedListener {
             override fun onTabSelected(tab: TabLayout.Tab) {
                 val position = tab.position
-                homeViewModel.showEntryType.value = when(position) {
-                    0  -> EntryType.Income
+                insightViewModel.showEntryType.value = when (position) {
+                    0 -> EntryType.Income
                     1 -> EntryType.Expense
                     2 -> EntryType.Investment
                     else -> EntryType.Income
@@ -114,7 +120,7 @@ class HomeFragment : Fragment() {
     }
 
     private fun setupRecyclerView() {
-        adapter = CategoryTotalAdapter(requireContext())
+        adapter = CategoryLegendAdapter(requireContext())
         recyclerView.adapter = adapter
         val spanCount = 2
         val spacing = 16.toPx()
@@ -129,27 +135,29 @@ class HomeFragment : Fragment() {
 
     private fun setupPieChart() {
         pieChart.legend.isEnabled = false
-        pieChart.description = null
+        pieChart.setUsePercentValues(true)
         pieChart.setDrawSlicesUnderHole(false)
-        pieChart.setDrawEntryLabels(false)
         pieChart.setTransparentCircleAlpha(0)
-        pieChart.holeRadius = 80f
+        pieChart.holeRadius = 90f
+        pieChart.description = null
         pieChart.isRotationEnabled = false
-        pieChart.maxAngle = 180.0F
+        pieChart.setDrawEntryLabels(false)
         pieChart.rotationAngle = 180.0f
         pieChart.setHoleColor(Color.parseColor("#00000000"))
     }
 
-    private fun setupBalanceChart() {
-        balanceChart.legend.isEnabled = false
-        balanceChart.description = null
-        balanceChart.setDrawSlicesUnderHole(false)
-        balanceChart.setDrawEntryLabels(false)
-        balanceChart.setTransparentCircleAlpha(0)
-        balanceChart.holeRadius = 70f
-        balanceChart.isRotationEnabled = false
-        balanceChart.maxAngle = 180.0F
-        balanceChart.rotationAngle = 180.0f
-        balanceChart.setHoleColor(Color.parseColor("#00000000"))
+    private fun setupLineChart() {
+        lineChart.description = null
+
+        val formatter: ValueFormatter = object : ValueFormatter() {
+            override fun getAxisLabel(value: Float, axis: AxisBase): String {
+                return labels.getOrNull(value.toInt()) ?: ""
+            }
+        }
+
+        val xAxis = lineChart.xAxis
+        xAxis.granularity = 1f
+        xAxis.valueFormatter = formatter
+        lineChart.axisRight.isEnabled = false
     }
 }

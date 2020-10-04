@@ -5,10 +5,7 @@ import androidx.room.Dao
 import androidx.room.Delete
 import androidx.room.Insert
 import androidx.room.Query
-import com.hackademy.monetrix.data.model.Entry
-import com.hackademy.monetrix.data.model.EntryTotal
-import com.hackademy.monetrix.data.model.EntryType
-import com.hackademy.monetrix.data.model.Transaction
+import com.hackademy.monetrix.data.model.*
 import java.util.*
 
 @Dao
@@ -39,4 +36,10 @@ interface TransactionDao {
 
     @Query("SELECT type, SUM(amount) as total FROM `entry` where date between :startDate and :endDate group by type")
     fun getTotalBetweenDates(startDate: Date, endDate: Date): LiveData<List<EntryTotal>>
+
+    @Query("SELECT strftime(\"%m-%Y\", date/1000, 'unixepoch') as 'month', type, SUM(amount) as total FROM `entry` group by strftime(\"%m-%Y\", date/1000, 'unixepoch'), type")
+    fun getTotalByMonth(): LiveData<List<EntryTotalWithMonth>>
+
+    @Query("SELECT strftime(\"%m-%Y\", date/1000, 'unixepoch') as 'month', type, SUM(amount) as total FROM `entry` where type = :type group by strftime(\"%m-%Y\", date/1000, 'unixepoch'), type")
+    fun getTotalByMonth(type: EntryType): LiveData<List<EntryTotalWithMonth>>
 }

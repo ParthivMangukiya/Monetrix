@@ -19,4 +19,6 @@
     <string name="saving_plan">Saving Plan</string>
     <string name="rupee_symbol">₹</string>
     <string name="rupee">₹ %1$f</string>
+    <string name="investment">Investment</string>
+    <string name="title_insight">Insight</string>
 </resources>

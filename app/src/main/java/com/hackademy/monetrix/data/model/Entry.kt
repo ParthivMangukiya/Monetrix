@@ -7,7 +7,8 @@ import java.util.*
 
 enum class EntryType(val code: Int) {
     Income(0),
-    Expense(1)
+    Expense(1),
+    Investment(2)
 }
 
 @Entity

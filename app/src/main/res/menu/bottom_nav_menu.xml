@@ -20,4 +20,10 @@
         android:title="@string/title_transactions"
         app:showAsAction="ifRoom" />
 
+    <item
+        android:id="@+id/navigation_insight"
+        android:icon="@drawable/insights"
+        android:title="@string/title_insight"
+        app:showAsAction="ifRoom" />
+
 </menu>

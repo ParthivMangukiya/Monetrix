@@ -24,4 +24,11 @@ class CategoryRepository(private val categoryDao: CategoryDao) {
             categoryDao.getCategoriesTotalBetweenDates(entryType, startDate, endDate)
         return expenseByCategories
     }
+
+    @WorkerThread
+    fun getCategoriesTotal(entryType: EntryType): LiveData<List<CategoryTotal>> {
+        val expenseByCategories =
+            categoryDao.getCategoriesTotal(entryType)
+        return expenseByCategories
+    }
 }

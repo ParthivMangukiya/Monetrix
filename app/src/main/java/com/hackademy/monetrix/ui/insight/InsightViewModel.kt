@@ -1,21 +1,22 @@
-package com.hackademy.monetrix.ui.home
+package com.hackademy.monetrix.ui.insight
 
 import android.app.Application
 import androidx.lifecycle.*
 import com.hackademy.monetrix.data.database.AppDatabase
 import com.hackademy.monetrix.data.model.CategoryTotal
 import com.hackademy.monetrix.data.model.EntryTotal
+import com.hackademy.monetrix.data.model.EntryTotalWithMonth
 import com.hackademy.monetrix.data.model.EntryType
 import com.hackademy.monetrix.data.repository.CategoryRepository
 import com.hackademy.monetrix.data.repository.TransactionRepository
 
-class HomeViewModel(application: Application) : AndroidViewModel(application) {
+class InsightViewModel(application: Application) : AndroidViewModel(application) {
 
     private val repository: CategoryRepository
     private val transactionRepository: TransactionRepository
-    val showEntryType: MutableLiveData<EntryType> = MutableLiveData(EntryType.Expense)
+    val showEntryType: MutableLiveData<EntryType> = MutableLiveData(EntryType.Income)
     var categoriesTotal: LiveData<List<CategoryTotal>>
-    var entryTotal: LiveData<List<EntryTotal>>
+    var entryTotal: LiveData<List<EntryTotalWithMonth>>
 
     init {
         val database = AppDatabase.getDatabase(application, viewModelScope)
@@ -31,7 +32,7 @@ class HomeViewModel(application: Application) : AndroidViewModel(application) {
 
         entryTotal = showEntryType.switchMap {
             liveData {
-                emitSource(transactionRepository.getEntryTotalOfThisMonth())
+                emitSource(transactionRepository.getEntryTotalByMonth(it))
             }
         }
     }
