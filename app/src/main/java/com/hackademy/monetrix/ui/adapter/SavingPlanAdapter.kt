@@ -32,10 +32,14 @@ class SavingPlanAdapter internal constructor(
 
     override fun onBindViewHolder(holder: TransactionViewHolder, position: Int) {
         val current = savingPlans[position]
-        holder.goalTextView.text = current.savingPlan.amount.toRupee()
-        holder.savedTextView.text = current.savedAmount.toRupee()
+        holder.goalTextView.text = "Goal: " + current.savingPlan.amount.toRupee()
+        holder.savedTextView.text = "Saved: " + current.savedAmount.toRupee()
         holder.nameTextView.text = current.savingPlan.name
-        holder.targetDateTextView.text = current.savingPlan.targetDate.getFormatted("yyyy-MM-dd")
+        if(!current.savingPlan.completed) {
+            holder.targetDateTextView.text = "Target: " + current.savingPlan.targetDate.getFormatted("yyyy-MM-dd")
+        } else {
+            holder.targetDateTextView.text = "Achieved: 05-10-2020"
+        }
     }
 
     internal fun setSavingPlans(savingPlans: List<SavingPlanTransaction>) {
