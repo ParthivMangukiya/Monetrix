@@ -23,7 +23,7 @@ class CategoryAdapter internal constructor(
 
     inner class CategoryViewHolder(itemView: View) : RecyclerView.ViewHolder(itemView) {
         val image: ImageView = itemView.findViewById(R.id.category_image)
-        val name: TextView = itemView.findViewById(R.id.category_name)
+        val name: TextView = itemView.findViewById(R.id.entry_type)
         val backgroudView: View = itemView.findViewById(R.id.view)
     }
 

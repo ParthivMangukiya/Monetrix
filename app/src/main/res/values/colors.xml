@@ -1,8 +1,14 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
-    <color name="colorPrimary">#7F76FF</color>
-    <color name="colorPrimaryDark">#3700B3</color>
-    <color name="colorAccent">#03DAC5</color>
+    <color name="primaryColor">#455a64</color>
+    <color name="primaryLightColor">#718792</color>
+    <color name="primaryDarkColor">#1c313a</color>
+    <color name="secondaryColor">#81c784</color>
+    <color name="secondaryLightColor">#b2fab4</color>
+    <color name="secondaryDarkColor">#519657</color>
+    <color name="primaryTextColor">#ffffff</color>
+    <color name="secondaryTextColor">#000000</color>
+    <color name="accentColor">#607D8B</color>
     <color name="primary_button_textcolor">#ffffff</color>
     <color name="expense">#ff847c</color>
     <color name="income">#99b898</color>
@@ -18,4 +24,8 @@
     <color name="chart_color6">#89b0ae</color>
     <color name="chart_color7">#f4a261</color>
     <color name="chart_color8">#c8553d</color>
+    <color name="chart_color9">#455A64</color>
+    <color name="chart_color10">#90A4AE</color>
+    <color name="chart_color11">#607D8B</color>
+    <color name="chart_color12">#CFD8DC</color>
 </resources>

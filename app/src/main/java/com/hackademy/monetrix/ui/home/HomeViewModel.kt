@@ -23,15 +23,10 @@ class HomeViewModel(application: Application) : AndroidViewModel(application) {
         val transactionDao = database.transactionDao()
         repository = CategoryRepository(categoryDao)
         transactionRepository = TransactionRepository(transactionDao)
+        entryTotal = transactionRepository.getEntryTotalOfThisMonth()
         categoriesTotal = showEntryType.switchMap {
             liveData {
                 emitSource(repository.getCategoriesTotalOfThisMonth(it))
-            }
-        }
-
-        entryTotal = showEntryType.switchMap {
-            liveData {
-                emitSource(transactionRepository.getEntryTotalOfThisMonth())
             }
         }
     }

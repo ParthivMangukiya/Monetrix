@@ -12,7 +12,7 @@
     android:theme="@style/Theme.MaterialComponents.Light"
     app:cardCornerRadius="8dp"
     app:cardElevation="0dp"
-    app:strokeColor="@color/colorPrimary"
+    app:strokeColor="?android:colorPrimary"
     app:strokeWidth="1dp">
 
     <androidx.constraintlayout.widget.ConstraintLayout

@@ -33,6 +33,7 @@ class Converters {
             return when(value) {
                 0 -> EntryType.Income
                 1 -> EntryType.Expense
+                2 -> EntryType.Investment
                 else -> {
                  EntryType.Income
                 }

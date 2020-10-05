@@ -6,6 +6,16 @@
     android:layout_height="match_parent"
     tools:context=".ui.home.HomeFragment">
 
+
+    <com.github.mikephil.charting.charts.PieChart
+        android:id="@+id/piechart"
+        android:layout_width="180dp"
+        android:layout_height="180dp"
+        android:layout_marginStart="@dimen/activity_horizontal_margin"
+        android:layout_marginTop="16dp"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent" />
+
     <com.google.android.material.tabs.TabLayout
         android:id="@+id/homeTabLayout"
         android:layout_width="match_parent"
@@ -13,7 +23,7 @@
         android:elevation="4dp"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent">
+        app:layout_constraintTop_toTopOf="@+id/guideline3">
 
         <com.google.android.material.tabs.TabItem
             android:layout_width="wrap_content"
@@ -31,28 +41,6 @@
             android:text="@string/investment" />
     </com.google.android.material.tabs.TabLayout>
 
-    <com.github.mikephil.charting.charts.PieChart
-        android:id="@+id/piechart"
-        android:layout_width="match_parent"
-        android:layout_height="0dp"
-        android:layout_marginStart="@dimen/activity_horizontal_margin"
-        android:layout_marginEnd="@dimen/activity_horizontal_margin"
-        app:layout_constraintBottom_toTopOf="@+id/guideline3"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/homeTabLayout" />
-
-    <com.github.mikephil.charting.charts.PieChart
-        android:id="@+id/balancechart"
-        android:layout_width="match_parent"
-        android:layout_height="0dp"
-        android:layout_marginStart="64dp"
-        android:layout_marginEnd="64dp"
-        app:layout_constraintBottom_toBottomOf="@+id/piechart"
-        app:layout_constraintEnd_toEndOf="@+id/piechart"
-        app:layout_constraintStart_toStartOf="@+id/piechart"
-        app:layout_constraintTop_toTopOf="@+id/piechart" />
-
     <com.hackademy.monetrix.ui.view.GridRecyclerView
         android:id="@+id/category_total_recyclerview"
         android:layout_width="match_parent"
@@ -64,8 +52,10 @@
         android:layoutAnimation="@anim/grid_layout_animation"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.0"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/piechart"
+        app:layout_constraintTop_toBottomOf="@+id/homeTabLayout"
+        app:layout_constraintVertical_bias="1.0"
         tools:listitem="@layout/item_category_total" />
 
     <androidx.constraintlayout.widget.Guideline
@@ -74,6 +64,20 @@
         android:layout_height="wrap_content"
         android:orientation="horizontal"
         app:layout_constraintGuide_percent="0.4" />
+
+    <androidx.recyclerview.widget.RecyclerView
+        android:id="@+id/entry_recyclerview"
+        android:layout_width="0dp"
+        android:layout_height="0dp"
+        android:layout_marginStart="16dp"
+        android:layout_marginTop="16dp"
+        android:layout_marginEnd="16dp"
+        android:layout_marginBottom="16dp"
+        app:layout_constraintBottom_toTopOf="@+id/homeTabLayout"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toEndOf="@+id/piechart"
+        app:layout_constraintTop_toTopOf="parent"
+        tools:listitem="@layout/item_entry_total"/>
 
 
 </androidx.constraintlayout.widget.ConstraintLayout>

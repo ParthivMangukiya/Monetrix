@@ -11,8 +11,8 @@
         android:layout_height="50dp"
         android:background="@drawable/category_bg"
         android:elevation="2dp"
-        app:layout_constraintEnd_toEndOf="@+id/category_name"
-        app:layout_constraintStart_toStartOf="@+id/category_name"
+        app:layout_constraintEnd_toEndOf="@+id/entry_type"
+        app:layout_constraintStart_toStartOf="@+id/entry_type"
         app:layout_constraintTop_toTopOf="parent" />
 
     <ImageView
@@ -28,7 +28,7 @@
         android:contentDescription="@string/category_image_description"/>
 
     <TextView
-        android:id="@+id/category_name"
+        android:id="@+id/entry_type"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_marginTop="8dp"

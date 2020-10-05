@@ -5,13 +5,12 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:id="@+id/categoryTotalCardView"
     style="@style/Widget.MaterialComponents.CardView"
-    android:layout_width="155dp"
+    android:layout_width="150dp"
     android:layout_height="130dp"
+    android:elevation="2dp"
     android:layout_gravity="center"
     android:alpha="1"
     android:theme="@style/Theme.MaterialComponents.Light"
-    app:strokeColor="@color/chart_color1"
-    app:strokeWidth="2dp"
     card_view:cardCornerRadius="14dp"
     card_view:cardElevation="2dp">
 
@@ -21,8 +20,8 @@
 
         <ImageView
             android:id="@+id/category_image"
-            android:layout_width="48dp"
-            android:layout_height="48dp"
+            android:layout_width="36dp"
+            android:layout_height="36dp"
             android:layout_marginStart="16dp"
             android:layout_marginTop="16dp"
             android:contentDescription="@string/category_image_description"
@@ -32,16 +31,29 @@
             app:srcCompat="@drawable/ic_dashboard_black_24dp" />
 
         <TextView
-            android:id="@+id/category_name"
+            android:id="@+id/entry_type"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginStart="16dp"
-            android:layout_marginTop="16dp"
+            android:layout_marginTop="8dp"
             android:gravity="center"
-            android:textAppearance="@style/TextAppearance.AppCompat.Body2"
+            android:textAppearance="@style/TextAppearance.AppCompat.Small"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toBottomOf="@+id/category_image"
             tools:text="Food and Drink" />
+
+        <TextView
+            android:id="@+id/amount"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="16dp"
+            android:layout_marginTop="8dp"
+            android:gravity="center"
+            android:textAppearance="@style/TextAppearance.AppCompat.Medium"
+            android:textColor="@color/secondaryTextColor"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/entry_type"
+            tools:text="$ 500" />
 
 
     </androidx.constraintlayout.widget.ConstraintLayout>
