@@ -9,9 +9,21 @@
         app:showAsAction="ifRoom" />
 
     <item
+        android:id="@+id/navigation_insight"
+        android:icon="@drawable/insights"
+        android:title="@string/title_insight"
+        app:showAsAction="ifRoom" />
+
+    <item
         android:id="@+id/navigation_home"
         android:icon="@drawable/home"
         android:title="@string/title_home"
+        app:showAsAction="ifRoom" />
+
+    <item
+        android:id="@+id/navigation_feed"
+        android:icon="@drawable/line_chart"
+        android:title="@string/title_feed"
         app:showAsAction="ifRoom" />
 
     <item
@@ -20,16 +32,5 @@
         android:title="@string/title_transactions"
         app:showAsAction="ifRoom" />
 
-    <item
-        android:id="@+id/navigation_insight"
-        android:icon="@drawable/insights"
-        android:title="@string/title_insight"
-        app:showAsAction="ifRoom" />
-
-    <item
-        android:id="@+id/navigation_feed"
-        android:icon="@drawable/line_chart"
-        android:title="@string/title_feed"
-        app:showAsAction="ifRoom" />
 
 </menu>
