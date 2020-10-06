@@ -27,6 +27,8 @@ public abstract class AppDatabase : RoomDatabase() {
     abstract fun categoryDao(): CategoryDao
     abstract fun savingPlanDao(): SavingPlanDao
 
+
+
     private class AppDatabaseCallback(
         private val scope: CoroutineScope
     ) : RoomDatabase.Callback() {
@@ -66,11 +68,12 @@ public abstract class AppDatabase : RoomDatabase() {
                         )
                     )
                     val ids: Array<Long> = categoryDao.insertAll(*categories)
+                    val month = 30*24*60*60*1000;
                     val entries = arrayOf(
                         Entry(
                             description = "Salary",
                             amount = 100000.0,
-                            date = Date(Calendar.getInstance().time.time),
+                            date = Date(Calendar.getInstance().time.time ),
                             categoryId = ids[3],
                             type = EntryType.Income
                         ), Entry(
@@ -114,6 +117,56 @@ public abstract class AppDatabase : RoomDatabase() {
                             description = "HDFC",
                             amount = 30000.0,
                             date = Date(Calendar.getInstance().time.time),
+                            categoryId = ids[4],
+                            type = EntryType.Investment
+                        ),
+                        Entry(
+                            description = "Salary",
+                            amount = 90000.0,
+                            date = Date(Calendar.getInstance().time.time - month),
+                            categoryId = ids[3],
+                            type = EntryType.Income
+                        ), Entry(
+                            description = "Burger",
+                            amount = 700.0,
+                            date = Date(Calendar.getInstance().time.time - month),
+                            categoryId = ids[0],
+                            type = EntryType.Expense
+                        ), Entry(
+                            description = "Movie",
+                            amount = 500.0,
+                            date = Date(Calendar.getInstance().time.time - month),
+                            categoryId = ids[1],
+                            type = EntryType.Expense
+                        ), Entry(
+                            description = "Mobile",
+                            amount = 14000.0,
+                            date = Date(Calendar.getInstance().time.time - month),
+                            categoryId = ids[2],
+                            type = EntryType.Expense
+                        ),
+                        Entry(
+                            description = "Light Bill",
+                            amount = 3000.0,
+                            date = Date(Calendar.getInstance().time.time - month),
+                            categoryId = ids[2],
+                            type = EntryType.Expense
+                        ), Entry(
+                            description = "Reliance",
+                            amount = 18000.0,
+                            date = Date(Calendar.getInstance().time.time - month),
+                            categoryId = ids[5],
+                            type = EntryType.Investment
+                        ), Entry(
+                            description = "TCS",
+                            amount = 15000.0,
+                            date = Date(Calendar.getInstance().time.time - month),
+                            categoryId = ids[5],
+                            type = EntryType.Investment
+                        ), Entry(
+                            description = "HDFC",
+                            amount = 20000.0,
+                            date = Date(Calendar.getInstance().time.time - month),
                             categoryId = ids[4],
                             type = EntryType.Investment
                         )
