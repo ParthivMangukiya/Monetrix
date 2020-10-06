@@ -36,7 +36,7 @@ class AddViewModel(application: Application) : AndroidViewModel(application) {
     var categoryId: Long = 0
     var entryType: LiveData<EntryType> = map(_incomeExpense) {
         when (it) {
-            false -> EntryType.Income
+            false -> EntryType.Investment
             true -> EntryType.Expense
         }
     }

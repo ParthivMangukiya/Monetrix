@@ -4,7 +4,6 @@
     xmlns:tools="http://schemas.android.com/tools">
 
     <data>
-
         <variable
             name="viewmodel"
             type="com.hackademy.monetrix.ui.add.AddViewModel" />
@@ -180,7 +179,7 @@
                 android:layout_weight="1"
                 android:gravity="center_vertical"
                 android:paddingLeft="16dp"
-                android:text="@{viewmodel.entryType.code == 1 ? `Expense` : `Income` }"
+                android:text="@{viewmodel.entryType.code == 1 ? `Expense` : `Investment` }"
                 android:textAppearance="@style/TextAppearance.AppCompat.Body2"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintStart_toStartOf="parent"

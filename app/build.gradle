@@ -77,4 +77,5 @@ dependencies {
     androidTestImplementation "androidx.arch.core:core-testing:$rootProject.coreTestingVersion"
 
     implementation "androidx.lifecycle:lifecycle-livedata-ktx:$rootProject.archLifecycleVersion"
+    implementation 'com.github.lzyzsd:circleprogress:1.2.1'
 }
