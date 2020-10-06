@@ -69,17 +69,17 @@ class HomeFragment : Fragment() {
         })
 
         homeViewModel.entryTotal.observe(viewLifecycleOwner, Observer { list ->
-
             val expense = getAmount(list,EntryType.Expense)
             val budget = 30000f.toDouble()
             val balance =  budget - expense
             balanceTextView.text = balance.toRupee()
             expenseTextView.text = expense.toRupee()
             budgetTextView.text = budget.toRupee()
-            val progress = (expense/budget).toInt()
+            var progress = (expense/budget*100).toInt()
             if(progress > 100) {
-                progressBar.progress = progress
+                progress = 100
             }
+            progressBar.progress = progress
         })
 
         tabLayout.addOnTabSelectedListener(object : TabLayout.OnTabSelectedListener {
